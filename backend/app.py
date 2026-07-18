@@ -1,15 +1,25 @@
-from flask import Flask, Blueprint
+import os
+
+from dotenv import load_dotenv
+from flask import Flask
 from flask_cors import CORS
 from processing import bp as processing_bp
 
-# Initialize Flask app (additionally exporting app if needed elsewhere)
+load_dotenv()
+
 app = Flask(__name__)
-tree_mold = Blueprint("mold", __name__)
+
+allowed_origins = [
+    "http://localhost:5173",
+    os.environ.get("FRONTEND_URL", ""),
+]
+
 CORS(app, resources={
     r"/api/*": {
-        "origins": "http://localhost:5173"
+        "origins": allowed_origins
     }
 })
+
 app.register_blueprint(processing_bp)
 
 if __name__ == '__main__':
