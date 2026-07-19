@@ -30,6 +30,7 @@ const UploadPage = () => {
   const [fileName, setFileName] = useState('');
   const [typed, setTyped] = useState('');
   const [loadingMsg, setLoadingMsg] = useState(0);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     let pi = 0, ci = 0, deleting = false;
@@ -55,7 +56,11 @@ const UploadPage = () => {
 
   const handleUpload = async () => {
     const file = fileInput.current?.files?.[0];
-    if (!file || !jd) return;
+    if (!file || !jd) {
+      setError(!file && !jd ? 'Please upload a CV and paste the job description.' : !file ? 'Please upload a CV.' : 'Please paste the job description.');
+      return;
+    }
+    setError('');
     setLoading(true);
     const formData = new FormData();
     formData.append('resume', file);
@@ -128,10 +133,7 @@ const UploadPage = () => {
         mx: 'auto',
       }}>
         <Box>
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, bgcolor: '#13111F', border: '1px solid #2D2A3E', borderRadius: 10, px: 2, py: 0.8, fontSize: { xs: 12, md: 13 }, color: '#A78BFA', fontWeight: 600, mb: 3 }}>
-            <span style={{ display: 'inline-block', animation: 'wiggle 1.2s infinite' }}>🔥</span> Actually works. No cap.
-          </Box>
-
+        
           <Typography sx={{ fontSize: { xs: 36, sm: 48, md: 60, xl: 68 }, fontWeight: 800, lineHeight: 1.1, letterSpacing: '-2px', mb: 3, color: '#F0EEF9' }}>
             Stop crying over<br />
             <span style={{ background: 'linear-gradient(135deg,#A78BFA,#818CF8,#38BDF8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -139,13 +141,12 @@ const UploadPage = () => {
             </span>
           </Typography>
 
-          <Box sx={{ bgcolor: '#13111F', border: '1px solid #2D2A3E', borderRadius: 3, p: { xs: 2, md: 3 }, mb: 3 }}>
-            <Typography sx={{ fontSize: 10, color: '#6B7280', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, mb: 0.8 }}>✍️ Zapply is writing...</Typography>
-            <Typography sx={{ color: '#A78BFA', fontWeight: 600, fontSize: { xs: 13, md: 15 }, minHeight: 24 }}>
-              {typed}
-              <span style={{ display: 'inline-block', width: 2, height: 16, background: '#A78BFA', marginLeft: 2, verticalAlign: 'middle', animation: 'blink 0.8s infinite' }} />
-            </Typography>
-          </Box>
+         <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', minHeight: 24 }}>
+          <Typography component="span" sx={{ color: '#A78BFA', fontWeight: 600, fontSize: { xs: 13, md: 15 } }}>
+            {typed}
+          </Typography>
+          <span style={{ display: 'inline-block', width: 2, height: 16, background: '#A78BFA', marginLeft: 2, verticalAlign: 'middle', animation: 'blink 0.8s infinite' }} />
+        </Box>
 
           <Typography sx={{ color: '#6B7280', fontSize: { xs: 14, md: 16 }, lineHeight: 1.8, mb: 4 }}>
             Drop your CV + the job description. We handle the rest —{' '}
@@ -177,11 +178,15 @@ const UploadPage = () => {
               </Box>
             </Box>
 
+            {error && (
+              <Typography sx={{ color: '#F87171', fontSize: 12, mb: 1 }}>{error}</Typography>
+            )}
             <Box sx={{ p: { xs: '16px 20px', md: '18px 28px' }, borderTop: '1px solid #1E1B2E', display: 'flex', alignItems: 'center', justifyContent: 'space-between', bgcolor: '#0D0B18', flexWrap: 'wrap', gap: 2 }}>
               <Typography sx={{ fontSize: 12, color: '#6B7280' }}>⚡ Ready in <span style={{ color: '#34D399', fontWeight: 600 }}>~15 seconds</span></Typography>
               <Button onClick={handleUpload} disabled={loading} sx={{ background: 'linear-gradient(135deg,#7C3AED,#6D28D9)', color: 'white', fontWeight: 700, fontSize: { xs: 13, md: 15 }, px: { xs: 3, md: 4 }, py: { xs: 1.2, md: 1.5 }, borderRadius: 2, textTransform: 'none', boxShadow: '0 4px 14px rgba(124,58,237,0.3)', '&:hover': { transform: 'translateY(-1px)' } }}>
                 {loading ? 'Generating...' : 'Generate Cover Letter ✨'}
               </Button>
+              
             </Box>
           </Box>
         </Box>

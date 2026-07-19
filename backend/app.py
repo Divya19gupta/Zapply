@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 
 allowed_origins = [
-    "http://localhost:5173",
+    "https://zapply-cyan.vercel.app/",
     os.environ.get("FRONTEND_URL", ""),
 ]
 
