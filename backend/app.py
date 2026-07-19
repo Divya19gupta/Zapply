@@ -1,16 +1,16 @@
-import os
-
 from dotenv import load_dotenv
+load_dotenv()
+
+import os
 from flask import Flask
 from flask_cors import CORS
 from processing import bp as processing_bp
-
-load_dotenv()
 
 app = Flask(__name__)
 
 allowed_origins = [
     "https://zapply-cyan.vercel.app/",
+    # "http://localhost:5173/",
     os.environ.get("FRONTEND_URL", ""),
 ]
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const API = import.meta.env.VITE_API_URL || 'https://zapply.onrender.com'
+// const API = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000'
 const phrases = [
   "Dear Hiring Manager, I am an excellent fit for this role...",
   "My experience speaks for itself. So does my coffee intake.",
@@ -125,7 +126,7 @@ const UploadPage = () => {
 
       <Box sx={{
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', xl: '1fr 1fr' },
+        gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' },
         gap: { xs: 4, xl: 8 },
         px: { xs: 3, sm: 5, md: 8, xl: 10 },
         py: { xs: 5, md: 8 },
@@ -191,7 +192,7 @@ const UploadPage = () => {
           </Box>
         </Box>
 
-        <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', justifyContent: 'center' }}>
           <Box sx={{ position: 'relative', width: '100%', maxWidth: 420, height: 480 }}>
             <Box sx={{ position: 'absolute', width: '70%', height: '70%', background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)', borderRadius: '50%', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', animation: 'breathe 4s ease-in-out infinite' }} />
             {[
