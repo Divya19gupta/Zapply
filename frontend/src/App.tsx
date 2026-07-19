@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<UploadPage />} />
           <Route path="/cover-letter" element={<CoverLetterPage />} />
+          <Route path="*" element={<UploadPage />} /> 
         </Routes>
       </Router>
     </>

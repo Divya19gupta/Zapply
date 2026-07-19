@@ -3,6 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
+const API = import.meta.env.VITE_API_URL || 'https://zapply.onrender.com'
 const phrases = [
   "Dear Hiring Manager, I am an excellent fit for this role...",
   "My experience speaks for itself. So does my coffee intake.",
@@ -60,7 +61,7 @@ const UploadPage = () => {
     formData.append('resume', file);
     formData.append('job_description', jd);
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/upload', { method: 'POST', body: formData });
+      const response = await fetch(`${API}/api/upload`, { method: 'POST', body: formData });
       const result = await response.json();
       navigate('/cover-letter', { state: { coverLetter: result.cover_letter } });
     } catch (e) { console.error(e); }
