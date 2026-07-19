@@ -9,7 +9,7 @@ from processing import bp as processing_bp
 app = Flask(__name__)
 
 allowed_origins = [
-    "https://zapply-cyan.vercel.app/",
+    "https://zapply-cyan.vercel.app",
     # "http://localhost:5173/",
     os.environ.get("FRONTEND_URL", ""),
 ]
